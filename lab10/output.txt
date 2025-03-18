@@ -1,0 +1,127 @@
+Creating Tree 1...
+Bootstrap Sample:
+RID: 14 age: senior income: medium student: no credit_rating: excellent buyscomputer: no
+RID: 2 age: youth income: high student: no credit_rating: excellent buyscomputer: no
+RID: 7 age: middle_aged income: low student: yes credit_rating: excellent buyscomputer: yes
+RID: 13 age: middle_aged income: high student: yes credit_rating: fair buyscomputer: yes
+RID: 4 age: senior income: medium student: no credit_rating: fair buyscomputer: yes
+RID: 3 age: middle_aged income: high student: no credit_rating: fair buyscomputer: yes
+RID: 1 age: youth income: high student: no credit_rating: fair buyscomputer: no
+RID: 8 age: youth income: medium student: no credit_rating: fair buyscomputer: no
+RID: 6 age: senior income: low student: yes credit_rating: excellent buyscomputer: no
+RID: 12 age: middle_aged income: medium student: no credit_rating: excellent buyscomputer: yes
+RID: 5 age: senior income: low student: yes credit_rating: fair buyscomputer: yes
+RID: 10 age: senior income: medium student: yes credit_rating: fair buyscomputer: yes
+RID: 11 age: youth income: medium student: yes credit_rating: excellent buyscomputer: yes
+RID: 9 age: youth income: low student: yes credit_rating: fair buyscomputer: yes
+End of Bootstrap Sample
+Selected Unique Attributes for Tree: income age student credit_rating 
+Tree 1 structure:
+Node: age
+  Branch: middle_aged ->
+    Node: yes
+      Leaf: yes
+  Branch: senior ->
+    Node: credit_rating
+      Branch: excellent ->
+        Node: no
+          Leaf: no
+      Branch: fair ->
+        Node: yes
+          Leaf: yes
+  Branch: youth ->
+    Node: student
+      Branch: no ->
+        Node: no
+          Leaf: no
+      Branch: yes ->
+        Node: yes
+          Leaf: yes
+End of Tree 1
+
+Creating Tree 2...
+Bootstrap Sample:
+RID: 4 age: senior income: medium student: no credit_rating: fair buyscomputer: yes
+RID: 8 age: youth income: medium student: no credit_rating: fair buyscomputer: no
+RID: 2 age: youth income: high student: no credit_rating: excellent buyscomputer: no
+RID: 12 age: middle_aged income: medium student: no credit_rating: excellent buyscomputer: yes
+RID: 6 age: senior income: low student: yes credit_rating: excellent buyscomputer: no
+RID: 9 age: youth income: low student: yes credit_rating: fair buyscomputer: yes
+RID: 11 age: youth income: medium student: yes credit_rating: excellent buyscomputer: yes
+RID: 1 age: youth income: high student: no credit_rating: fair buyscomputer: no
+RID: 7 age: middle_aged income: low student: yes credit_rating: excellent buyscomputer: yes
+RID: 10 age: senior income: medium student: yes credit_rating: fair buyscomputer: yes
+RID: 13 age: middle_aged income: high student: yes credit_rating: fair buyscomputer: yes
+RID: 5 age: senior income: low student: yes credit_rating: fair buyscomputer: yes
+RID: 3 age: middle_aged income: high student: no credit_rating: fair buyscomputer: yes
+RID: 14 age: senior income: medium student: no credit_rating: excellent buyscomputer: no
+End of Bootstrap Sample
+Selected Unique Attributes for Tree: age credit_rating income student 
+Tree 2 structure:
+Node: age
+  Branch: middle_aged ->
+    Node: yes
+      Leaf: yes
+  Branch: senior ->
+    Node: credit_rating
+      Branch: excellent ->
+        Node: no
+          Leaf: no
+      Branch: fair ->
+        Node: yes
+          Leaf: yes
+  Branch: youth ->
+    Node: student
+      Branch: no ->
+        Node: no
+          Leaf: no
+      Branch: yes ->
+        Node: yes
+          Leaf: yes
+End of Tree 2
+
+Creating Tree 3...
+Bootstrap Sample:
+RID: 11 age: youth income: medium student: yes credit_rating: excellent buyscomputer: yes
+RID: 9 age: youth income: low student: yes credit_rating: fair buyscomputer: yes
+RID: 1 age: youth income: high student: no credit_rating: fair buyscomputer: no
+RID: 14 age: senior income: medium student: no credit_rating: excellent buyscomputer: no
+RID: 8 age: youth income: medium student: no credit_rating: fair buyscomputer: no
+RID: 4 age: senior income: medium student: no credit_rating: fair buyscomputer: yes
+RID: 12 age: middle_aged income: medium student: no credit_rating: excellent buyscomputer: yes
+RID: 2 age: youth income: high student: no credit_rating: excellent buyscomputer: no
+RID: 10 age: senior income: medium student: yes credit_rating: fair buyscomputer: yes
+RID: 6 age: senior income: low student: yes credit_rating: excellent buyscomputer: no
+RID: 13 age: middle_aged income: high student: yes credit_rating: fair buyscomputer: yes
+RID: 7 age: middle_aged income: low student: yes credit_rating: excellent buyscomputer: yes
+RID: 5 age: senior income: low student: yes credit_rating: fair buyscomputer: yes
+RID: 3 age: middle_aged income: high student: no credit_rating: fair buyscomputer: yes
+End of Bootstrap Sample
+Selected Unique Attributes for Tree: income student age credit_rating 
+Tree 3 structure:
+Node: age
+  Branch: middle_aged ->
+    Node: yes
+      Leaf: yes
+  Branch: senior ->
+    Node: credit_rating
+      Branch: excellent ->
+        Node: no
+          Leaf: no
+      Branch: fair ->
+        Node: yes
+          Leaf: yes
+  Branch: youth ->
+    Node: student
+      Branch: no ->
+        Node: no
+          Leaf: no
+      Branch: yes ->
+        Node: yes
+          Leaf: yes
+End of Tree 3
+
+Query: senior high yes fair -> Prediction: yes
+Query: youth high yes fair -> Prediction: yes
+Query: middle_aged low no excellent -> Prediction: yes
+Query: youth high no fair -> Prediction: no

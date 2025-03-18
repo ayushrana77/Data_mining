@@ -1,0 +1,1324 @@
+[8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column([8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_dat[8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["[8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   [8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitiv[8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)e_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)a.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              [8:24 AM, 2/18/2025] Arnab Layek: K anonymity
+
+import pandas as pd 
+ds = pd.read_csv("formatted_data.csv") 
+ 
+def age(num): 
+    x= num//10 
+    y = str(x*10) + '-' + str((x+1)*10) 
+    return y 
+def zip(x): 
+    x= str(x) 
+    y = x[:1] + "**" 
+    return y 
+ 
+ds['Age'] = ds['Age'].apply(lambda x:age(x)) 
+ds['Zip'] = ds['Zip'].apply(lambda x:zip(x)) 
+ 
+df = ds.groupby(['Age']).size().reset_index(name= 'Count') 
+ds = ds.merge(df,on=['Age'],how='inner') 
+ 
+k = 2 
+ds = ds[ds['Count'] > k] 
+print(ds.head(20))
+[8:25 AM, 2/18/2025] Arnab Layek: K anonymity full 
+
+import pandas as pd 
+import numpy as np 
+ 
+# Create the dataframe 
+dF = pd.read_csv("formatted_data.csv") 
+ 
+# Generalization function for Age, Zip, and Glucose_Max 
+def generalize_age(age): 
+    if age < 40: 
+        return "30-40" 
+    elif age < 50: 
+        return "40-50" 
+    elif age < 60: 
+        return "50-60" 
+    else: 
+        return "60-70" 
+ 
+def generalize_zip(zip_code): 
+    if zip_code < 250: 
+        return "200-250" 
+    else: 
+        return "250-300" 
+ 
+def generalize_glucose(glucose): 
+    if glucose < 150: 
+        return "100-150" 
+    elif glucose < 200: 
+        return "150-200" 
+    else: 
+        return "200+" 
+ 
+# Apply generalization 
+df['Age'] = df['Age'].apply(generalize_age) 
+df['Zip'] = df['Zip'].apply(generalize_zip) 
+df['Glucose_Max'] = df['Glucose_Max'].apply(generalize_glucose) 
+ 
+# Output the generalized data 
+print(df)
+
+
+
+X-Y anonymity
+
+import pandas as pd 
+import numpy as np 
+ 
+ 
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")   
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce")  
+ 
+ 
+df = df.dropna() 
+ 
+ 
+X = 2   [8:26 AM, 2/18/2025] Arnab Layek: 
+Y = 1   
+  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+ 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+  
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X:    
+        unique_sensitive_values = group[sensitive_attribute].nunique() 
+        if unique_sensitive_values >= Y:  # Check Y-diversity 
+            anonymized_data.append(group) 
+        else: 
+              
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else:  
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+  
+anonymized_df = pd.concat(anonymized_data) 
+  
+output_file = "anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"Anonymized data saved to {output_file}")
+
+
+X-Y Linkability
+
+import pandas as pd 
+import numpy as np 
+ 
+  
+input_file = "input_data.csv" 
+df = pd.read_csv(input_file, header=None, names=["Age", "Gender", "Zipcode"]) 
+ 
+#   
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce") 
+df["Zipcode"] = pd.to_numeric(df["Zipcode"], errors="coerce") 
+ 
+  
+df = df.dropna() 
+  
+X = 2    
+Y = 0.  
+quasi_identifiers = ["Age", "Zipcode"] 
+sensitive_attribute = "Gender" 
+ 
+  
+def generalize_column(column, bin_size): 
+    """Generalize a numeric column into bins of size bin_size.""" 
+    return column // bin_size * bin_size 
+  
+df["Age"] = generalize_column(df["Age"], 10) 
+df["Zipcode"] = generalize_column(df["Zipcode"], 10) 
+ 
+# Step 3: Apply (X, Y)-Linkability 
+grouped = df.groupby(quasi_identifiers) 
+ 
+# Store the anonymized data 
+anonymized_data = [] 
+ 
+for _, group in grouped: 
+    if len(group) >= X  
+        max_sensitive_proportion = 
+group[sensitive_attribute].value_counts(normalize=True).max() 
+ 
+        if max_sensitive_proportion <= Y  
+            anonymized_data.append(group) 
+        else: 
+  
+            group[sensitive_attribute] = "Suppressed" 
+            anonymized_data.append(group) 
+    else: 
+        # Suppress entire group if it fails X condition 
+        group[quasi_identifiers] = "Suppressed" 
+        group[sensitive_attribute] = "Suppressed" 
+        anonymized_data.append(group) 
+ 
+  
+anonymized_df = pd.concat(anonymized_data) 
+ 
+  
+output_file = "linkability_anonymized_data.csv" 
+anonymized_df.to_csv(output_file, index=False) 
+print(f"(X, Y)-Linkability anonymized data saved to {output_file}")
+Pertuberation Technique
+
+import numpy as np 
+import pandas as pd  
+def add_noise(data, epsilon=0.1):     
+"""Adds random noise to numerical data."""     
+noise = np.random.normal(0, epsilon, size=data.shape)     return data + noise  def data_swapping(df, columns, swap_fraction=0.2):     """Swaps values between records for selected columns."""     num_swaps = int(len(df) * swap_fraction)     swapped_df = df.copy()          for col in columns:         indices = np.random.permutation(len(df))         swapped_df[col].iloc[:num_swaps] = df[col].iloc[indices[:num_swaps]].values          return swapped_df  def laplace_mechanism(data, sensitivity=1, epsilon=1.0):     """Applies differential privacy using the Laplace mechanism."""     scale = sensitivity / epsilon     noise = np.random.laplace(0, scale, size=data.shape)     return data + noise  # Example Usage df = pd.DataFrame({     'Age': [25, 30, 45, 50, 35],     'Salary': [50000, 60000, 70000, 80000, 90000] })  # Applying Noise Addition noisy_df = df.copy() noisy_df[['Age', 'Salary']] = add_noise(df[['Age', 'Salary']], epsilon=2)  # Applying Data Swapping swapped_df = data_swapping(df, columns=['Age', 'Salary'], swap_fraction=0.4)  # Applying Laplace Mechanism laplace_df = df.copy() laplace_df[['Age', 'Salary']] = laplace_mechanism(df[['Age', 'Salary']], sensitivity=5, epsilon=1)  
+print("Original Data:") print(df) print("\nNoisy Data:") print(noisy_df) print("\nSwapped Data:") print(swapped_df) print("\nLaplace Mechanism Data:") print(laplace_df)

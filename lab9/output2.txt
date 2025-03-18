@@ -1,0 +1,30 @@
+Cluster 1: Count = 2, Radius = 1.02956
+Points in this cluster:
+(1, 2)
+(2, 3.8)
+Cluster 2: Count = 2, Radius = 1.82003
+Points in this cluster:
+(9.8, 8.9)
+(7.6, 6)
+Cluster 3: Count = 1, Radius = 0
+Points in this cluster:
+(7, 6)
+Cluster 4: Count = 1, Radius = 0
+Points in this cluster:
+(2.5, 9.7)
+Cluster 5: Count = 1, Radius = 0
+Points in this cluster:
+(15.3, 41.4)
+Cluster 6: Count = 3, Radius = 0.452155
+Points in this cluster:
+(15.6, 15.7)
+(15.7, 16)
+(16, 15)
+Cluster 7: Count = 2, Radius = 0.710634
+Points in this cluster:
+(25.6, 30.5)
+(24.5, 31.4)
+Cluster 8: Count = 2, Radius = 0.710634
+Points in this cluster:
+(67.8, 67.1)
+(66.7, 66.2)

@@ -1,0 +1,14 @@
+1 2 -> Cluster 0
+2 3.8 -> Cluster 0
+9.8 8.9 -> Cluster 1
+7 6 -> Cluster 1
+7.6 6 -> Cluster 1
+2.5 9.7 -> Cluster -2
+15.3 41.4 -> Cluster -2
+15.6 15.7 -> Cluster 2
+15.7 16 -> Cluster 2
+16 15 -> Cluster 2
+25.6 30.5 -> Cluster 3
+24.5 31.4 -> Cluster 3
+67.8 67.1 -> Cluster 4
+66.7 66.2 -> Cluster 4

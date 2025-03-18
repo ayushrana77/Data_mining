@@ -1,0 +1,72 @@
+CLUSTER ARE DIVIED INTO
+Cluster 3
+1 2
+
+Cluster 2
+4 5
+3 8
+5 6
+
+Cluster 1
+6 7
+11 45
+87 87
+23 45
+76 12
+14 809
+9 3
+
+CLUSTER ARE DIVIED INTO
+Cluster 3
+1 2
+
+Cluster 2
+4 5
+6 7
+3 8
+11 45
+23 45
+76 12
+9 3
+5 6
+
+Cluster 1
+87 87
+14 809
+
+CLUSTER ARE DIVIED INTO
+Cluster 3
+1 2
+4 5
+6 7
+3 8
+9 3
+5 6
+
+Cluster 2
+11 45
+87 87
+23 45
+76 12
+
+Cluster 1
+14 809
+
+CLUSTER ARE DIVIED INTO
+Cluster 3
+1 2
+4 5
+6 7
+3 8
+9 3
+5 6
+
+Cluster 2
+11 45
+87 87
+23 45
+76 12
+
+Cluster 1
+14 809
+

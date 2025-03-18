@@ -1,0 +1,64 @@
+Query  1
+
+no 5
+( senior : no ) : 0.4
+( fair : no ) : 0.4
+( high : no ) : 0.4
+( yes : no ) : 0.2
+0.00457143
+yes 9
+( senior : yes ) : 0.333333
+( fair : yes ) : 0.666667
+( high : yes ) : 0.222222
+( yes : yes ) : 0.666667
+0.021164
+It was predicted the value : yes
+
+Query  2
+
+no 5
+( youth : no ) : 0.6
+( fair : no ) : 0.4
+( high : no ) : 0.4
+( yes : no ) : 0.2
+0.00685714
+yes 9
+( youth : yes ) : 0.222222
+( fair : yes ) : 0.666667
+( high : yes ) : 0.222222
+( yes : yes ) : 0.666667
+0.0141093
+It was predicted the value : yes
+
+Query  3
+
+no 5
+( middle_aged : no ) : 0.125
+( excellent : no ) : 0.6
+( low : no ) : 0.2
+( no : no ) : 0.8
+0.00428571
+yes 9
+( middle_aged : yes ) : 0.444444
+( excellent : yes ) : 0.333333
+( low : yes ) : 0.333333
+( no : yes ) : 0.333333
+0.010582
+It was predicted the value : yes
+
+Query  4
+
+no 5
+( youth : no ) : 0.6
+( fair : no ) : 0.4
+( high : no ) : 0.4
+( no : no ) : 0.8
+0.0274286
+yes 9
+( youth : yes ) : 0.222222
+( fair : yes ) : 0.666667
+( high : yes ) : 0.222222
+( no : yes ) : 0.333333
+0.00705467
+It was predicted the value : no
+
