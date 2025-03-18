@@ -1,0 +1,263 @@
+Print the tree 
+root : 0
+c : 5 d : 1 
+b : 1 d : 4 a : 1 
+f : 1 a : 2 e : 1 e : 1 
+b : 2 
+e : 1 f : 1 
+f : 1 
+Link of the tree 
+(a: 2 ) -->(a: 1 ) --> NULL 
+(b: 2 ) -->(b: 1 ) --> NULL 
+(c: 5 ) --> NULL 
+(d: 4 ) -->(d: 1 ) --> NULL 
+(e: 1 ) -->(e: 1 ) -->(e: 1 ) --> NULL 
+(f: 1 ) -->(f: 1 ) -->(f: 1 ) --> NULL 
+
+condtional tree  :{f }
+Print the tree 
+root : 0
+b : 3 
+c : 3 
+a : 2 
+d : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+(b: 3 ) --> NULL 
+(c: 3 ) --> NULL 
+(d: 2 ) --> NULL 
+
+condtional tree  :{f d }
+Print the tree 
+root : 0
+a : 2 
+b : 2 
+c : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+(b: 2 ) --> NULL 
+(c: 2 ) --> NULL 
+
+condtional tree  :{f d c }
+Print the tree 
+root : 0
+a : 2 
+b : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+(b: 2 ) --> NULL 
+
+condtional tree  :{f d c b }
+Print the tree 
+root : 0
+a : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+
+condtional tree  :{f d c b a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f d c a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f d b }
+Print the tree 
+root : 0
+a : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+
+condtional tree  :{f d b a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f d a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f a }
+Print the tree 
+root : 0
+b : 2 
+c : 2 
+Link of the tree 
+(b: 2 ) --> NULL 
+(c: 2 ) --> NULL 
+
+condtional tree  :{f a c }
+Print the tree 
+root : 0
+b : 2 
+Link of the tree 
+(b: 2 ) --> NULL 
+
+condtional tree  :{f a c b }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f a b }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f c }
+Print the tree 
+root : 0
+b : 3 
+Link of the tree 
+(b: 3 ) --> NULL 
+
+condtional tree  :{f c b }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{f b }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{e }
+Print the tree 
+root : 0
+d : 3 
+a : 2 c : 1 
+c : 1 
+Link of the tree 
+(a: 2 ) --> NULL 
+(c: 1 ) -->(c: 1 ) --> NULL 
+(d: 3 ) --> NULL 
+
+condtional tree  :{e c }
+Print the tree 
+root : 0
+d : 2 
+Link of the tree 
+(d: 2 ) --> NULL 
+
+condtional tree  :{e c d }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{e a }
+Print the tree 
+root : 0
+d : 2 
+Link of the tree 
+(d: 2 ) --> NULL 
+
+condtional tree  :{e a d }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{e d }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{b }
+Print the tree 
+root : 0
+c : 3 
+a : 2 
+d : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+(c: 3 ) --> NULL 
+(d: 2 ) --> NULL 
+
+condtional tree  :{b d }
+Print the tree 
+root : 0
+a : 2 
+c : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+(c: 2 ) --> NULL 
+
+condtional tree  :{b d c }
+Print the tree 
+root : 0
+a : 2 
+Link of the tree 
+(a: 2 ) --> NULL 
+
+condtional tree  :{b d c a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{b d a }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{b a }
+Print the tree 
+root : 0
+c : 2 
+Link of the tree 
+(c: 2 ) --> NULL 
+
+condtional tree  :{b a c }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{b c }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{a }
+Print the tree 
+root : 0
+d : 3 
+c : 2 
+Link of the tree 
+(c: 2 ) --> NULL 
+(d: 3 ) --> NULL 
+
+condtional tree  :{a c }
+Print the tree 
+root : 0
+d : 2 
+Link of the tree 
+(d: 2 ) --> NULL 
+
+condtional tree  :{a c d }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{a d }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{d }
+Print the tree 
+root : 0
+c : 4 
+Link of the tree 
+(c: 4 ) --> NULL 
+
+condtional tree  :{d c }
+Print the tree 
+root : 0
+Link of the tree 
+
+condtional tree  :{c }
+Print the tree 
+root : 0
+Link of the tree 
+

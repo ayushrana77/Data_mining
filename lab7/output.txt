@@ -1,0 +1,15 @@
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1
+Input: 0, 1 -> Output: 0.988799 -> Predicted: 1
+Input: 1, 1 -> Output: 0.0115263 -> Predicted: 0
+Input: 0, 0 -> Output: 0.0131029 -> Predicted: 0
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1
+Input: 1, 1 -> Output: 0.0115263 -> Predicted: 0
+Input: 0, 1 -> Output: 0.988799 -> Predicted: 1
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1
+Input: 0, 1 -> Output: 0.988799 -> Predicted: 1
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1
+Input: 0, 0 -> Output: 0.0131029 -> Predicted: 0
+Input: 1, 1 -> Output: 0.0115263 -> Predicted: 0
+Input: 0, 0 -> Output: 0.0131029 -> Predicted: 0
+Input: 1, 0 -> Output: 0.988792 -> Predicted: 1

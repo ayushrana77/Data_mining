@@ -1,0 +1,11 @@
+closed item sets :
+{a } support count:5
+{c } support count:5
+{e } support count:3
+{a d } support count:4
+{a e } support count:2
+{c f } support count:3
+{a b c } support count:4
+{c e f } support count:2
+{a b c d } support count:3
+{a b c f } support count:2

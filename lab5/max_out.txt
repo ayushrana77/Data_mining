@@ -1,0 +1,5 @@
+Maxiume item sets :
+{a e } support count:2
+{c e f } support count:2
+{a b c d } support count:3
+{a b c f } support count:2

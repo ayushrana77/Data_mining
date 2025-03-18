@@ -1,0 +1,5 @@
+princer element:
+{ a e }
+{ c e f }
+{ a b c d }
+{ a b c f }

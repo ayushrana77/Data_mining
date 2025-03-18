@@ -1,0 +1,23 @@
+INFROMATION GAIN
+Infromation gain of when root : and attribute age Gain 0.24675
+Infromation gain of when root : and attribute credit_rating Gain 0.048127
+Infromation gain of when root : and attribute income Gain 0.0292226
+Infromation gain of when root : and attribute student Gain 0.151836
+Infromation gain of when root age:senior and attribute credit_rating Gain 0.970951
+Infromation gain of when root age:senior and attribute income Gain 0.0199731
+Infromation gain of when root age:senior and attribute student Gain 0.0199731
+Infromation gain of when root age:youth and attribute credit_rating Gain 0.0199731
+Infromation gain of when root age:youth and attribute income Gain 0.570951
+Infromation gain of when root age:youth and attribute student Gain 0.970951
+
+ALL PATH
+age:middle_aged ---> yes
+age:senior ---> credit_rating:excellent ---> no
+age:senior ---> credit_rating:fair ---> yes
+age:youth ---> student:no ---> no
+age:youth ---> student:yes ---> yes
+
+query : senior high yes fair ans : yes
+query : youth high yes fair ans : yes
+query : middle_aged low no excellent ans : yes
+query : youth high no fair ans : no

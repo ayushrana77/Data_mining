@@ -1,0 +1,6 @@
+T1 a b c d e f
+T2 b c f
+T3 c d e
+T4 a b c d f
+T5 c d
+T6 a d e

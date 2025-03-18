@@ -1,0 +1,103 @@
+ {a } Add in dotted circle
+ {b } Add in dotted circle
+ {c } Add in dotted circle
+ {d } Add in dotted circle
+ {e } Add in dotted circle
+ {f } Add in dotted circle
+ After partion 0
+
+ After partion 1
+
+ After partion 2
+
+ {c } Add in dotted squar
+ After partion 3
+
+ {b } Add in dotted squar
+ {b c } Add in dotted circle
+ {d } Add in dotted squar
+ {b d } Add in dotted circle
+ {c d } Add in dotted circle
+ {f } Add in dotted squar
+ {b f } Add in dotted circle
+ {c f } Add in dotted circle
+ {d f } Add in dotted circle
+ After partion 4
+
+ After partion 5
+
+ {a } Add in dotted squar
+ {a b } Add in dotted circle
+ {a c } Add in dotted circle
+ {a d } Add in dotted circle
+ {a f } Add in dotted circle
+ {e } Add in dotted squar
+ {a e } Add in dotted circle
+ {b e } Add in dotted circle
+ {c e } Add in dotted circle
+ {d e } Add in dotted circle
+ {e f } Add in dotted circle
+ {c } Add in solid squre
+ {b } Add in solid squre
+ {d } Add in solid squre
+ {f } Add in solid squre
+ {a } Add in solid squre
+ {e } Add in solid squre
+ After partion 0
+
+ After partion 1
+
+ After partion 2
+
+ {c d } Add in dotted squar
+ After partion 3
+
+ {b c } Add in dotted squar
+ {b d } Add in solid circle
+ {b f } Add in dotted squar
+ {c f } Add in dotted squar
+ {b c f } Add in dotted circle
+ {d f } Add in solid circle
+ After partion 4
+
+ After partion 5
+
+ {a b } Add in solid circle
+ {a c } Add in solid circle
+ {a d } Add in dotted squar
+ {a e } Add in solid circle
+ {a f } Add in solid circle
+ {b e } Add in solid circle
+ {c e } Add in solid circle
+ {d e } Add in dotted squar
+ {e f } Add in solid circle
+ {c d } Add in solid squre
+ {b c } Add in solid squre
+ {b f } Add in solid squre
+ {c f } Add in solid squre
+ {a d } Add in solid squre
+ {d e } Add in solid squre
+ After partion 0
+
+ After partion 1
+
+ After partion 2
+
+ After partion 3
+
+ {b c f } Add in dotted squar
+
+ FreqItem Set: 
+ {c }
+ {b }
+ {d }
+ {f }
+ {a }
+ {e }
+ {c d }
+ {b c }
+ {b f }
+ {c f }
+ {a d }
+ {d e }
+ {b c f }
